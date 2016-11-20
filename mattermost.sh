@@ -1,32 +1,29 @@
 #!/bin/bash
 
-# Slack incoming web-hook URL and user name
-url='CHANGEME'		# example: https://hooks.slack.com/services/QW3R7Y/D34DC0D3/BCADFGabcDEF123
-username='Zabbix'
+# Mattermost incoming web-hook URL and user name
+url='<incoming webbook uri>'	# example: httpsL//mattermost.example.com/hooks/ere5h9gfbbbk8gdxsei1tt8ewewechjsd
+username='zabbix'
 
 ## Values received by this script:
-# To = $1 (Slack channel or user to send the message to, specified in the Zabbix web interface; "@username" or "#channel")
+# To = $1 (Mattermost channel or user to send the message to, specified in the Zabbix web interface; "@username" or "#channel")
 # Subject = $2 (usually either PROBLEM or RECOVERY)
 # Message = $3 (whatever message the Zabbix action sends, preferably something like "Zabbix server is unreachable for 5 minutes - Zabbix server (127.0.0.1)")
 
-# Get the Slack channel or user ($1) and Zabbix subject ($2 - hopefully either PROBLEM or RECOVERY)
+# Get the Mattermost channel or user ($1) and Zabbix subject ($2 - hopefully either PROBLEM or RECOVERY)
 to="$1"
 subject="$2"
 
-# Change message emoji depending on the subject - smile (RECOVERY), frowning (PROBLEM), or ghost (for everything else)
-recoversub='^RECOVER(Y|ED)?$'
-if [[ "$subject" =~ ${recoversub} ]]; then
-	emoji=':smile:'
+# Change color emoji depending on the subject - Green (RECOVERY), Red (PROBLEM)
+if [ "$subject" == 'RECOVERY' ]; then
+        color="#00ff33"
 elif [ "$subject" == 'PROBLEM' ]; then
-	emoji=':frowning:'
-else
-	emoji=':ghost:'
+        color="#ff2a00"
 fi
 
-# The message that we want to send to Slack is the "subject" value ($2 / $subject - that we got earlier)
+# The message that we want to send to Mattermost  is the "subject" value ($2 / $subject - that we got earlier)
 #  followed by the message that Zabbix actually sent us ($3)
 message="${subject}: $3"
 
-# Build our JSON payload and send it as a POST request to the Slack incoming web-hook URL
-payload="payload={\"channel\": \"${to//\"/\\\"}\", \"username\": \"${username//\"/\\\"}\", \"text\": \"${message//\"/\\\"}\", \"icon_emoji\": \"${emoji}\"}"
-curl -m 5 --data-urlencode "${payload}" $url -A 'zabbix-slack-alertscript / https://github.com/ericoc/zabbix-slack-alertscript'
+# Build our JSON payload and send it as a POST request to the Mattermost incoming web-hook URL
+payload="payload={\"attachments\": [ {\"color\": \"${color}\", \"text\": \"${message}\"} ], \"channel\": \"${to}\", \"username\": \"${username}\", \"icon_emoji\": \"${emoji}\"}"
+curl -m 5 --data-urlencode "${payload}" $url

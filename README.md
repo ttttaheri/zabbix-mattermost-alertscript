@@ -29,7 +29,7 @@ This [`mattermost.sh` script](https://raw.githubusercontent.com/muokata/zabbix-m
 	### Option: AlertScriptsPath
 	AlertScriptsPath=/usr/lib/zabbix/alertscripts
 
-	[root@zabbix ~]# ls -lh AlertScriptsPath=/usr/lib/zabbix/alertscriptsmattermost.sh
+	[root@zabbix ~]# ls -lh /usr/lib/zabbix/alertscriptsmattermost.sh
 	-rwxr-xr-x 1 root root 1.6K Nov 19 20:04 /usr/lib/zabbix/alertscripts/mattermost.sh
 
 Configuration

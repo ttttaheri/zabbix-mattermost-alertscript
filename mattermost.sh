@@ -3,6 +3,7 @@
 # Mattermost incoming web-hook URL and user name
 url='<incoming webbook uri>'	# example: httpsL//mattermost.example.com/hooks/ere5h9gfbbbk8gdxsei1tt8ewewechjsd
 username='zabbix'
+icon='<icon_url>'
 
 ## Values received by this script:
 # To = $1 (Mattermost channel or user to send the message to, specified in the Zabbix web interface; "@username" or "#channel")
@@ -25,5 +26,5 @@ fi
 message="${subject}: $3"
 
 # Build our JSON payload and send it as a POST request to the Mattermost incoming web-hook URL
-payload="payload={\"attachments\": [ {\"color\": \"${color}\", \"text\": \"${message}\"} ], \"channel\": \"${to}\", \"username\": \"${username}\", \"icon_emoji\": \"${emoji}\"}"
+payload="payload={\"icon_url\": \"$icon\", \"attachments\": [ {\"color\": \"${color}\", \"text\": \"${message}\"} ], \"channel\": \"${to}\", \"username\": \"${username}\", \"icon_emoji\": \"${emoji}\"}"
 curl -m 5 --data-urlencode "${payload}" $url

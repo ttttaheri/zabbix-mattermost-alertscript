@@ -32,25 +32,22 @@ This [`mattermost.sh` script](https://raw.githubusercontent.com/muokata/zabbix-m
 	[root@zabbix ~]# ls -lh AlertScriptsPath=/usr/lib/zabbix/alertscriptsmattermost.sh
 	-rwxr-xr-x 1 root root 1.6K Nov 19 20:04 /usr/lib/zabbix/alertscripts/mattermost.sh
 
-
-
 Configuration
 -------------
 
 ### mattermost web-hook
 
-An incoming web-hook integration must be created within your Mattermost account which can be done at https://<your mattermost uri>/chattr/integrations/incoming_webhooks as shown below:
+An incoming web-hook integration must be created within your Mattermost account which can be done at https://<your mattermost uri>/chattr/integrations/incoming_webhooks:
 
-![Mattermost.com Incoming Web-hook Integration](https://pictures.ericoc.com/github/newapi/mattermost-integration.png "Mattermost.com Incoming Web-hook Integration")
 
-Given the above screenshot, the incoming web-hook URL would be:
+the incoming web-hook URL would be something like:
 
-	https://hooks.mattermost.com/services/QW3R7Y/D34DC0D3/BCADFGabcDEF123
-	
+	https://<your mattermost uri>/hooks/ere5h9gfbbbk8gdxsdsduwuicsd
+
 Make sure that you specify your correct Mattermost incoming web-hook URL and feel free to edit the sender user name at the top of the script:
 
 	# Mattermost incoming web-hook URL and user name
-	url='https://hooks.mattermost.com/services/QW3R7Y/D34DC0D3/BCADFGabcDEF123'
+	url='https://<your mattermost uri>/hooks/ere5h9gfbbbk8gdxsdsduwuicsd'
 	username='zabbix'
 
 
@@ -64,9 +61,9 @@ You need to create a media type as follows:
 * **Type**: Script
 * **Script name**: mattermost.sh
 
-...and ensure that it is enabled before clicking "Save", like so:
+...and ensure that it is enabled before clicking "Save".
 
-![Zabbix Media Type](https://pictures.ericoc.com/github/zabbix-mediatype.png "Zabbix Media Type")
+<!-- ![Zabbix Media Type](https://pictures.ericoc.com/github/zabbix-mediatype.png "Zabbix Media Type") -->
 
 However, on Zabbix 3.x and greater, media types are configured slightly differently and you must explicity define the parameters sent to the `mattermost.sh` script. On Zabbix 3.x, three script parameters should be added as follows:
 
@@ -74,13 +71,13 @@ However, on Zabbix 3.x and greater, media types are configured slightly differen
 * `{ALERT.SUBJECT}`
 * `{ALERT.MESSAGE}`
 
-...as shown here:
+<!--  ...as shown here:
 
-![Zabbix 3.x Media Type](https://pictures.ericoc.com/github/zabbix3-mediatype.png "Zabbix 3.x Media Type")
+![Zabbix 3.x Media Type](https://pictures.ericoc.com/github/zabbix3-mediatype.png "Zabbix 3.x Media Type") -->
 
 Then, create a "Mattermost" user on the "Users" sub-tab of the "Administration" tab within the Zabbix servers web interface and specify this users "Media" as the "Mattermost" media type that was just created with the Mattermost.com channel ("#alerts" in the example) or user name (such as "@ericoc") that you want messages to go to in the "Send to" field as seen below:
 
-![Zabbix User](https://pictures.ericoc.com/github/zabbix-user.png "Zabbix User")
+<!--  ![Zabbix User](https://pictures.ericoc.com/github/zabbix-user.png "Zabbix User") -->
 
 Finally, an action can then be created on the "Actions" sub-tab of the "Configuration" tab within the Zabbix servers web interface to notify the Zabbix "Mattermost" user ensuring that the "Subject" is "PROBLEM" for "Default message" and "RECOVERY" should you choose to send a "Recovery message".
 
@@ -99,7 +96,7 @@ Assuming that you have set a valid Mattermost web-hook URL within your "mattermo
 
 Alerting a specific user name results in the message actually coming from the "mattermostbot" user using a sort-of "spoofed" user name within the message. A channel alert is sent as you would normally expect from whatever user name you specify in "mattermost.sh":
 
-![Mattermost Testing](https://pictures.ericoc.com/github/mattermost-example.png "Mattermost Testing")
+<!--  ![Mattermost Testing](https://pictures.ericoc.com/github/mattermost-example.png "Mattermost Testing") -->
 
 
 More Information

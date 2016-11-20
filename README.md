@@ -11,6 +11,7 @@ This works with Zabbix 1.8.x or greater - including 2.2, 2.4 and 3.x!
 
 #### Huge thanks and appreciation to:
 
+* [Eric OC](https://github.com/ericoc) where this was originally forked from (https://github.com/ericoc/zabbix-slack-alertscript)
 * [Paul Reeves](https://github.com/pdareeves/) for the hint that Mattermost changed their API/URLs!
 * [Igor Shishkin](https://github.com/teran) for the ability to message users as well as channels!
 * Leslie at AspirationHosting for confirming that this script works on Zabbix 1.8.2!

@@ -4,7 +4,7 @@ Zabbix Mattermost AlertScript
 
 About
 -----
-This is simply a Bash script that uses the custom alert script functionality within [Zabbix](http://www.zabbix.com/) along with the incoming web-hook feature of [Mattermost](https://mattermost.com/) that I got a chance to write since I could not find any already existing/similar scripts.
+This is simply a Bash script that uses the custom alert script functionality within [Zabbix](http://www.zabbix.com/) along with the incoming web-hook feature of [Mattermost](https://mattermost.com/).
 
 #### Versions
 This works with Zabbix 1.8.x or greater - including 2.2, 2.4 and 3.x!

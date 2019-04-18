@@ -12,9 +12,11 @@ USERNAME = "zabbix"
 ICON = "<icon_url>"
 LEVELS = ["Warning", "High", "Disaster"]
 
-def send_to_mattermost(webhook, channel, message, username="zabbix", color="#FF2A00", icon=""):
+def send_to_mattermost(webhook, channel, message, username="zabbix", color="#FF2A00", icon="", highlight=False):
 	# Build our JSON payload and send it as a POST request to the Mattermost incoming web-hook URL
 	payload = {"icon_url": icon, "attachments": [{"color": color, "text": message}], "channel": channel, "username": username, "icon_emoji": ""}
+	if highlight:
+		payload["message"] = ":warning: Cc <!here>"
 	requests.post(webhook, data={"payload": json.dumps(payload)})
 
 if __name__ == '__main__':
@@ -37,10 +39,11 @@ if __name__ == '__main__':
 	message = "### "+subject + "\n\n"+sys.argv[3]
 
 	# Let's highlight every connected people if the level is serious
+	hightlight = False
 	for level in LEVELS:
 		if level in message:
-			message += "\n\n Cc <!here>"
+			highlight = True
 			break
 
 	# Send notification
-	send_to_mattermost(URL, channel, message, username=USERNAME, color=color, icon=ICON)
+	send_to_mattermost(URL, channel, message, username=USERNAME, color=color, icon=ICON, highlight=highlight)

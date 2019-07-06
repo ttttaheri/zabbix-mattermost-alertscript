@@ -39,7 +39,7 @@ if __name__ == '__main__':
 	message = "### "+subject + "\n\n"+sys.argv[3]
 
 	# Let's highlight every connected people if the level is serious
-	hightlight = False
+	highlight = False
 	for level in LEVELS:
 		if level in message:
 			highlight = True

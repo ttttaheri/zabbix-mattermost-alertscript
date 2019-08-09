@@ -32,6 +32,11 @@ if __name__ == '__main__':
 	# Get the Mattermost channel or user (sys.argv[1]) and Zabbix subject (sys.argv[2])
 	channel = sys.argv[1]
 	subject = sys.argv[2]
+        if "{{OK}}" in subject:
+            subject=subject.replace("{{OK}}",":white_check_mark:")
+        elif "{{WARNING}}" in subject:
+            subject=subject.replace("{{WARNING}}",":warning:")
+	
 	color = "#00FF13" if "Resolved" in subject else "#FF2A00"
 
 	# The message that we want to send to Mattermost  is the "subject" value (sys.argv[2] / $subject - that we got earlier)

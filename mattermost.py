@@ -10,7 +10,7 @@ import requests
 URL = "<incoming webbook uri>" # example: httpsL//mattermost.example.com/hooks/ere5h9gfbbbk8gdxsei1tt8ewewechjsd
 USERNAME = "zabbix"
 ICON = "<icon_url>"
-LEVELS = ["Warning", "High", "Disaster"]
+LEVELS = ["Warning", "Average","High", "Disaster"]
 
 def send_to_mattermost(webhook, channel, message, username="zabbix", color="#FF2A00", icon="", highlight=False):
 	# Build our JSON payload and send it as a POST request to the Mattermost incoming web-hook URL
@@ -32,10 +32,10 @@ if __name__ == '__main__':
 	# Get the Mattermost channel or user (sys.argv[1]) and Zabbix subject (sys.argv[2])
 	channel = sys.argv[1]
 	subject = sys.argv[2]
-        if "{{OK}}" in subject:
-            subject=subject.replace("{{OK}}",":white_check_mark:")
-        elif "{{WARNING}}" in subject:
-            subject=subject.replace("{{WARNING}}",":warning:")
+        if "Resolved" in subject:
+            subject=subject.replace("Resolved",":white_check_mark:")
+        elif "Problem" in subject:
+            subject=subject.replace("Problem",":warning:")
 	
 	color = "#00FF13" if "Resolved" in subject else "#FF2A00"
 
